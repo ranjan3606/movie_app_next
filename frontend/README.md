@@ -1,192 +1,245 @@
-# Movie Assessment Frontend
+# 🎬 Movie App - Frontend (Next.js)
 
-This is a Next.js frontend application with Redux Toolkit for state management and comprehensive form validation.
+यह movie management application का frontend client है जो Next.js और React का उपयोग करता है।
 
-## Features Implemented
+## 📋 Prerequisites
 
-### 🔐 Authentication with Redux Toolkit
+- **Node.js** (version 18 या उससे ऊपर)
+- **npm** (version 8 या उससे ऊपर)
+- **Backend Server** (../backend) running on port 3001
 
-- **State Management**: Complete Redux Toolkit setup with typed hooks
-- **Auth Slice**: Centralized authentication state management
-- **Async Actions**: Login and register with proper error handling
-- **Persistent State**: Authentication state persists across browser sessions
+## 🚀 Quick Setup
 
-### ✅ Form Validation
-
-#### Email Validation
-- Required field validation
-- Email format validation using regex
-- Real-time validation feedback
-
-#### Password Validation  
-- Required field validation
-- Minimum 6 characters requirement
-- Real-time validation feedback
-
-#### Confirm Password Validation (Register)
-- Required field validation
-- Password matching validation
-- Real-time validation feedback
-
-### 🎨 User Experience Features
-
-- **Real-time Validation**: Errors show as user types (after first blur)
-- **Visual Feedback**: Error states with red borders and warning icons
-- **Loading States**: Button disabled during API calls
-- **Error Display**: API errors shown prominently
-- **Responsive Design**: Works on mobile and desktop
-
-## Project Structure
-
-```
-frontend/src/
-├── store/
-│   ├── store.ts          # Redux store configuration
-│   ├── hooks.ts          # Typed Redux hooks
-│   └── slices/
-│       └── authSlice.ts  # Authentication slice with actions
-├── app/
-│   ├── providers.tsx     # Redux Provider wrapper
-│   ├── layout.tsx        # App layout with Provider
-│   ├── login/
-│   │   └── page.tsx      # Login form with validation
-│   ├── register/
-│   │   └── page.tsx      # Register form with validation
-│   └── movies/
-│       └── page.tsx      # Movies page with auth integration
-└── lib/
-    └── api.ts           # API functions
-```
-
-## Redux Store Structure
-
-### Auth Slice State
-```typescript
-interface AuthState {
-  user: User | null;
-  token: string | null;
-  isLoading: boolean;
-  error: string | null;
-  validationErrors: ValidationErrors;
-  isAuthenticated: boolean;
-}
-```
-
-### Available Actions
-- `loginUser` - Async thunk for user login
-- `registerUser` - Async thunk for user registration
-- `logout` - Clear auth state and localStorage
-- `setValidationErrors` - Set form validation errors
-- `clearErrors` - Clear all errors
-- `initializeAuth` - Initialize auth from localStorage
-
-## Form Validation Examples
-
-### Email Validation
-```typescript
-export const validateEmail = (email: string): string | null => {
-  if (!email) return 'Email is required';
-  if (!email.trim()) return 'Email cannot be empty';
-  
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) return 'Please enter a valid email address';
-  
-  return null;
-};
-```
-
-### Password Validation
-```typescript
-export const validatePassword = (password: string): string | null => {
-  if (!password) return 'Password is required';
-  if (password.length < 6) return 'Password must be at least 6 characters long';
-  
-  return null;
-};
-```
-
-## Usage Examples
-
-### Using Redux in Components
-```typescript
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { loginUser, setValidationErrors } from '../../store/slices/authSlice';
-
-function LoginComponent() {
-  const dispatch = useAppDispatch();
-  const { isLoading, error, validationErrors } = useAppSelector(state => state.auth);
-  
-  const handleSubmit = async (email: string, password: string) => {
-    try {
-      await dispatch(loginUser({ email, password })).unwrap();
-    } catch (error) {
-      // Error handled by Redux slice
-    }
-  };
-}
-```
-
-### Form Validation Integration
-```typescript
-const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value;
-  setEmail(value);
-  
-  if (touched.email) {
-    const emailError = validateEmail(value);
-    dispatch(setValidationErrors({
-      ...validationErrors,
-      email: emailError || undefined,
-    }));
-  }
-};
-```
-
-## API Integration
-
-The Redux actions automatically handle:
-- API calls to backend authentication endpoints
-- Token storage in localStorage
-- User data persistence
-- Error handling and display
-- Loading states
-
-## Error Handling
-
-### Client-side Validation
-- Email format validation
-- Password length validation
-- Password confirmation matching
-- Real-time feedback
-
-### Server-side Error Handling
-- API error messages displayed to user
-- Network error handling
-- Authentication token expiry handling
-- Automatic logout on 401 errors
-
-## Development
+### 1. Dependencies Install करें
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
 ```
 
-## Dependencies Added
+### 2. Environment Variables Setup करें
 
-- `@reduxjs/toolkit` - Modern Redux with less boilerplate
-- `react-redux` - React bindings for Redux
+`.env.local` file बनाएं project root में:
 
-## Testing the Features
+```env
+# Backend API URL
+NEXT_PUBLIC_API_URL="http://localhost:3001/api"
 
-1. **Form Validation**: Try submitting empty forms or invalid emails
-2. **API Errors**: Try logging in with wrong credentials
-3. **State Persistence**: Refresh page after login to see persistent state
-4. **Real-time Validation**: Type in forms and see immediate feedback
-5. **Loading States**: Notice button states during API calls
+# Optional: Disable Next.js telemetry
+NEXT_TELEMETRY_DISABLED=1
+```
+
+### 3. Backend Server को Start करें
+
+पहले backend server को start करना जरूरी है:
+
+```bash
+# Backend directory में जाएं और server start करें
+cd ../backend
+npm run start:dev
+```
+
+### 4. Frontend Development Server Start करें
+
+```bash
+# Development mode
+npm run dev
+
+# Production build
+npm run build
+npm start
+```
+
+Application यहाँ available होगी: **http://localhost:3000**
+
+## 🔧 Available Scripts
+
+```bash
+# Development
+npm run dev              # Development server start करें
+npm run build            # Production build बनाएं
+npm run start            # Production server start करें
+
+# Code Quality
+npm run lint             # ESLint check करें
+npm run lint:fix         # ESLint errors fix करें
+
+# Utilities
+npm run clean            # .next folder clean करें
+npm run build:clean      # Clean build (removes .next first)
+npm run type-check       # TypeScript check करें
+```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Home page
+│   ├── login/             # Login page
+│   ├── register/          # Registration page
+│   ├── movies/            # Movies pages
+│   │   ├── page.tsx       # Movies list
+│   │   ├── create/        # Create movie
+│   │   └── edit/[id]/     # Edit movie
+│   └── providers.tsx      # Redux provider
+├── components/            # Reusable components
+│   └── Button/            # Custom button component
+├── lib/                   # Utility libraries
+│   └── api.ts             # API client
+└── store/                 # Redux store
+    ├── store.ts           # Store configuration
+    ├── hooks.ts           # Typed hooks
+    └── slices/            # Redux slices
+        └── authSlice.ts   # Authentication state
+```
+
+## 🎨 Features
+
+### ✅ Implemented Features:
+- **User Authentication** (Login/Register)
+- **Movies Management** (CRUD operations)
+- **Image Upload** (via Cloudinary)
+- **Responsive Design** (Mobile-friendly)
+- **State Management** (Redux Toolkit)
+- **Type Safety** (TypeScript)
+- **Modern UI** (CSS Modules)
+
+### 🔄 User Flow:
+1. **Registration/Login** - User account बनाएं या login करें
+2. **Movies List** - सभी movies देखें
+3. **Create Movie** - नई movie add करें (with image)
+4. **Edit Movie** - Existing movie update करें
+5. **Delete Movie** - Movie को delete करें
+
+## 🌐 API Integration
+
+Frontend backend API के साथ communicate करता है:
+
+```javascript
+// API Base URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL; // http://localhost:3001/api
+
+// Main API Endpoints:
+POST   /auth/register    # User registration
+POST   /auth/login       # User login
+GET    /movies           # Get all movies
+POST   /movies           # Create new movie
+GET    /movies/:id       # Get movie by ID
+PUT    /movies/:id       # Update movie
+DELETE /movies/:id       # Delete movie
+```
+
+## 🔒 Environment Variables
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `NEXT_PUBLIC_API_URL` | Backend API URL | - | ✅ |
+| `NEXT_TELEMETRY_DISABLED` | Disable Next.js telemetry | 1 | ❌ |
+
+## 🎨 Styling
+
+- **CSS Modules** - Component-scoped styles
+- **Global CSS** - App-wide styles
+- **Responsive Design** - Mobile-first approach
+- **Modern UI** - Clean and intuitive interface
+
+## 🚨 Troubleshooting
+
+### Common Issues:
+
+1. **API Connection Error**
+   ```bash
+   # Check if backend server is running
+   curl http://localhost:3001/api/health
+   
+   # Verify API URL in .env.local
+   NEXT_PUBLIC_API_URL="http://localhost:3001/api"
+   ```
+
+2. **Port Already in Use**
+   ```bash
+   # Check what's running on port 3000
+   lsof -i :3000
+   
+   # Kill the process
+   kill -9 <PID>
+   
+   # Or run on different port
+   npm run dev -- -p 3001
+   ```
+
+3. **Build Errors**
+   ```bash
+   # Clean build cache
+   npm run clean
+   
+   # Reinstall dependencies
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
+
+4. **TypeScript Errors**
+   ```bash
+   # Check TypeScript configuration
+   npm run type-check
+   
+   # Fix linting issues
+   npm run lint:fix
+   ```
+
+## 🔗 Backend Connection
+
+यह frontend application backend server के साथ काम करता है:
+- **Backend Folder**: `../backend`
+- **Backend URL**: `http://localhost:3001`
+- **API Base**: `http://localhost:3001/api`
+
+## 📱 Pages Overview
+
+### 🏠 Home Page (`/`)
+- Welcome message
+- Navigation to movies
+
+### 🔐 Authentication Pages
+- **Login** (`/login`) - User login form
+- **Register** (`/register`) - User registration form
+
+### 🎬 Movies Pages
+- **Movies List** (`/movies`) - Display all movies
+- **Create Movie** (`/movies/create`) - Add new movie form
+- **Edit Movie** (`/movies/edit/[id]`) - Edit existing movie
+
+## ⚡ Performance Features
+
+- **Server-Side Rendering** (SSR)
+- **Static Generation** where applicable
+- **Image Optimization** (Next.js Image component)
+- **Code Splitting** (Automatic)
+- **Hot Reloading** (Development)
+
+## 🤝 Contributing
+
+1. Code को properly format करें
+2. TypeScript errors fix करें: `npm run type-check`
+3. Linting errors fix करें: `npm run lint:fix`
+4. Components को properly document करें
+5. Environment variables को properly set करें
+
+## 📝 Development Notes
+
+- Uses Next.js 15.4.2 with App Router
+- State management with Redux Toolkit
+- TypeScript for type safety
+- CSS Modules for styling
+- Responsive design principles
+- Modern React patterns (hooks, functional components)
+
+## 🚀 Deployment Ready
+
+यह application production के लिए ready है:
+- Environment variables properly configured
+- Build optimization enabled
+- Error boundaries implemented
+- SEO-friendly structure

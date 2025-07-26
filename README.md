@@ -1,279 +1,252 @@
-# Movie Assessment Application
+# 🎬 Movie Management Application
 
-A full-stack movie management application built with Next.js (frontend) and NestJS (backend) with **FREE cloud storage** for images and videos.
+यह एक complete movie management system है जो **clean separated architecture** में बना है।
 
-## 🎬 Features
+## 📁 Clean Project Structure
 
-### Frontend (Next.js)
-- Modern React-based UI with TypeScript
-- User authentication with JWT
-- Movie listing with pagination
-- Create/Edit movie forms with **image and video upload**
-- Responsive design with CSS modules
+```
+movie_app_next/
+├── backend/                    # 🔧 NestJS Backend Server
+│   ├── src/                   # Source code
+│   ├── package.json           # Backend dependencies
+│   ├── README.md              # Backend setup guide
+│   └── setup.sh               # Backend setup script
+│
+├── frontend/                   # 🎨 Next.js Frontend App
+│   ├── src/                   # Source code
+│   ├── package.json           # Frontend dependencies
+│   ├── README.md              # Frontend setup guide
+│   └── setup.sh               # Frontend setup script
+│
+└── README.md                  # This overview file
+```
 
-### Backend (NestJS)
-- RESTful API with TypeScript
+## 🚀 Quick Start
+
+### Option 1: Individual Setup (Recommended)
+
+```bash
+# Backend setup (Terminal 1)
+cd backend
+chmod +x setup.sh
+./setup.sh
+npm run start:dev
+
+# Frontend setup (Terminal 2)
+cd frontend
+chmod +x setup.sh
+./setup.sh
+npm run dev
+```
+
+### Option 2: Manual Setup
+
+```bash
+# Backend
+cd backend
+npm install
+# Create .env file (see backend/README.md)
+npm run start:dev
+
+# Frontend (new terminal)
+cd frontend
+npm install
+# Create .env.local file (see frontend/README.md)
+npm run dev
+```
+
+## 🎯 Applications
+
+### 🔧 Backend Server (NestJS)
+- **Port**: 3001
+- **API Docs**: http://localhost:3001/api/docs
+- **Technology**: NestJS, MongoDB, JWT, Cloudinary
+- **Setup Guide**: `backend/README.md`
+
+### 🎨 Frontend Application (Next.js)
+- **Port**: 3000
+- **URL**: http://localhost:3000
+- **Technology**: Next.js, React, Redux Toolkit, TypeScript
+- **Setup Guide**: `frontend/README.md`
+
+## 📋 Prerequisites
+
+### System Requirements:
+- **Node.js** 18+ और npm 8+
+- **MongoDB** (local या Atlas)
+- **Git**
+
+### External Services:
+- **Cloudinary Account** (free) - Image upload के लिए
+- **MongoDB Atlas** (optional) - Cloud database के लिए
+
+## 🌟 Features
+
+### 🔐 Authentication System
+- User registration और login
 - JWT-based authentication
-- MongoDB database with Mongoose ODM
-- **FREE file upload support** for movie posters and videos using **Cloudinary**
-- Swagger API documentation
-- Request validation and error handling
-- CORS configuration for frontend integration
+- Protected routes
+- Session persistence
 
-## 🚀 Tech Stack
+### 🎬 Movie Management
+- Movies list view
+- Create new movies
+- Edit existing movies
+- Delete movies
+- Image upload (Cloudinary)
 
-### Frontend
-- **Framework**: Next.js 15.4.2
-- **Language**: TypeScript
-- **Styling**: CSS Modules
-- **HTTP Client**: Fetch API
+### 🎨 Modern UI/UX
+- Responsive design
+- Real-time form validation
+- Loading states
+- Error handling
+- Clean, intuitive interface
 
-### Backend
-- **Framework**: NestJS 10.3.0
-- **Language**: TypeScript
-- **Database**: MongoDB
-- **ODM**: Mongoose 8.0.3
-- **Authentication**: JWT with Passport
-- **Validation**: class-validator
-- **Documentation**: Swagger/OpenAPI
-- **File Storage**: **Cloudinary (FREE 25GB + 25GB bandwidth)**
+## 🔄 Development Workflow
 
-## 💰 Free Cloud Storage
-
-This project uses **Cloudinary** for free file storage:
-- ✅ **25GB storage** (free tier)
-- ✅ **25GB bandwidth** per month (free tier)
-- ✅ **Images and videos** support
-- ✅ **Automatic optimization**
-- ✅ **CDN included**
-- ✅ **No credit card required** for free tier
-
-## 📁 Project Structure
-
-```
-movie-assessment/
-├── frontend/                 # Next.js frontend application
-│   ├── src/
-│   │   ├── app/             # App router pages
-│   │   └── components/      # Reusable components
-│   └── package.json
-├── server/                  # NestJS backend application
-│   ├── src/
-│   │   ├── auth/           # Authentication module
-│   │   ├── movies/         # Movies CRUD module
-│   │   ├── users/          # Users management module
-│   │   ├── config/         # Cloudinary configuration
-│   │   └── common/         # Shared utilities
-│   └── package.json
-└── package.json            # Root package.json for workspace management
+### 1. Start Backend Server
+```bash
+cd backend
+npm run start:dev
+# Server runs on http://localhost:3001
 ```
 
-## 🛠️ Getting Started
+### 2. Start Frontend App
+```bash
+cd frontend
+npm run dev
+# App runs on http://localhost:3000
+```
 
-### Prerequisites
-- Node.js 18+ and npm 8+
-- MongoDB database (local or cloud)
-- **Cloudinary account** (free signup at https://cloudinary.com/)
-- Git
+### 3. Development URLs
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001/api
+- **API Documentation**: http://localhost:3001/api/docs
 
-### Installation
+## 🚨 Common Issues & Solutions
 
-1. **Clone the repository**
+### Backend Issues:
+
+1. **MongoDB Connection Error**
    ```bash
-   git clone <repository-url>
-   cd movie-assessment
-   ```
-
-2. **Install dependencies for all packages**
-   ```bash
-   npm run install:all
-   ```
-
-3. **Set up Cloudinary (FREE)**
-   - Sign up at https://cloudinary.com/ (no credit card required)
-   - Get your credentials from the dashboard:
-     - Cloud Name
-     - API Key
-     - API Secret
-
-4. **Set up environment variables**
-
-   **Backend** (`server/.env`):
-   ```env
-   # MongoDB Database
-   MONGODB_URI="mongodb://localhost:27017/movie_assessment"
+   # Check MongoDB status
+   brew services list | grep mongodb
    
-   # JWT Configuration
-   JWT_SECRET="your-super-secret-jwt-key-here"
-   JWT_EXPIRES_IN="24h"
-   
-   # Server Configuration
-   PORT=3001
-   NODE_ENV="development"
-   
-   # Frontend URL (for CORS)
-   FRONTEND_URL="http://localhost:3000"
-   
-   # Cloudinary Configuration (FREE - 25GB storage + 25GB bandwidth)
-   CLOUDINARY_CLOUD_NAME="your-cloud-name-here"
-   CLOUDINARY_API_KEY="your-api-key-here"
-   CLOUDINARY_API_SECRET="your-api-secret-here"
-   ```
-
-   **Frontend** (`frontend/.env.local`):
-   ```env
-   NEXT_PUBLIC_API_URL="http://localhost:3001/api"
-   ```
-
-5. **Start MongoDB**
-   ```bash
-   # Start MongoDB service (if not running)
-   mongod --dbpath ~/data/db
-   
-   # Or if using MongoDB service
+   # Start MongoDB
    brew services start mongodb/brew/mongodb-community
    ```
 
-6. **Start the development servers**
+2. **Port 3001 Already in Use**
    ```bash
-   npm run dev
+   # Check what's using the port
+   lsof -i :3001
+   
+   # Kill the process
+   kill -9 <PID>
    ```
 
-   This will start:
-   - Frontend at http://localhost:3000
-   - Backend at http://localhost:3001
-   - API documentation at http://localhost:3001/api/docs
+### Frontend Issues:
 
-## 🎯 File Upload Features
+1. **API Connection Error**
+   ```bash
+   # Verify backend is running
+   curl http://localhost:3001/api/health
+   
+   # Check .env.local file
+   NEXT_PUBLIC_API_URL="http://localhost:3001/api"
+   ```
 
-### Supported File Types
-- **Images**: JPG, JPEG, PNG, GIF
-- **Videos**: MP4, AVI, MOV, WMV
+2. **Port 3000 Already in Use**
+   ```bash
+   # Run on different port
+   npm run dev -- -p 3001
+   ```
 
-### File Size Limits
-- **Images**: Up to 5MB
-- **Videos**: Up to 50MB
+## 📚 Documentation
 
-### Free Storage Benefits
-- All files stored on Cloudinary's global CDN
-- Automatic image/video optimization
-- Fast loading from anywhere in the world
-- No server storage required
+### Detailed Setup Guides:
+- **Backend**: `backend/README.md`
+- **Frontend**: `frontend/README.md`
 
-## 📡 API Endpoints
+### API Documentation:
+- **Swagger UI**: http://localhost:3001/api/docs (when backend is running)
 
-### Authentication
-- `POST /api/auth/login` - User login
-- `POST /api/auth/register` - User registration
+## 🔒 Environment Variables
 
-### Movies (Protected routes)
-- `GET /api/movies` - Get paginated movies list
-- `POST /api/movies` - Create a new movie (with image/video upload)
-- `GET /api/movies/:id` - Get movie by ID
-- `PATCH /api/movies/:id` - Update movie (with optional image/video upload)
-- `DELETE /api/movies/:id` - Delete movie
+### Backend (.env):
+```env
+MONGODB_URI="mongodb://localhost:27017/movie_assessment"
+JWT_SECRET="your-secret-key"
+JWT_EXPIRES_IN="24h"
+PORT=3001
+NODE_ENV="development"
+FRONTEND_URL="http://localhost:3000"
+CLOUDINARY_CLOUD_NAME="your-cloud-name"
+CLOUDINARY_API_KEY="your-api-key"
+CLOUDINARY_API_SECRET="your-api-secret"
+```
 
-## 🗃️ Database Schema
-
-### User Model
-- `_id`: ObjectId (Primary Key)
-- `email`: String (Unique)
-- `password`: String (Hashed)
-- `createdAt`: DateTime
-- `updatedAt`: DateTime
-
-### Movie Model
-- `_id`: ObjectId (Primary Key)
-- `title`: String
-- `description`: String (Optional)
-- `releaseDate`: DateTime (Optional)
-- `rating`: Float (0-10, Optional)
-- `imageUrl`: String (Cloudinary URL for image/video, Optional)
-- `userId`: ObjectId (Foreign Key)
-- `createdAt`: DateTime
-- `updatedAt`: DateTime
-
-## 🔧 Available Scripts
-
-### Root Level
-- `npm run dev` - Start both frontend and backend in development mode
-- `npm run build` - Build both frontend and backend for production
-- `npm run start` - Start both frontend and backend in production mode
-- `npm run install:all` - Install dependencies for all packages
-
-### Database Management
-- MongoDB runs locally on `mongodb://localhost:27017/movie_assessment`
-- Use MongoDB Compass for database GUI
-- Collections are automatically created when data is inserted
-
-### Development
-- `npm run dev:frontend` - Start only frontend development server
-- `npm run dev:backend` - Start only backend development server
-- `npm run lint` - Run linting for both frontend and backend
-
-## ✨ Features in Detail
-
-### Authentication
-- JWT-based authentication with secure token storage
-- Password hashing with bcrypt
-- Protected routes with JWT guards
-- User registration and login
-
-### Movie Management
-- CRUD operations for movies
-- **Image and video upload** with Cloudinary
-- Pagination support
-- Search functionality
-- User-specific movie lists
-
-### File Upload
-- **Free cloud storage** with Cloudinary
-- File validation (type and size)
-- **Global CDN delivery**
-- Automatic filename generation
-- Support for both images and videos
+### Frontend (.env.local):
+```env
+NEXT_PUBLIC_API_URL="http://localhost:3001/api"
+NEXT_TELEMETRY_DISABLED=1
+```
 
 ## 🚀 Production Deployment
 
-### Environment Setup
-1. Set up MongoDB database (MongoDB Atlas recommended)
-2. Configure environment variables for production
-3. Set strong JWT secret key
-4. Configure CORS for your domain
-5. Ensure Cloudinary credentials are set
-
-### Build and Deploy
+### Backend Deployment:
 ```bash
-# Build both applications
+cd backend
 npm run build
-
-# Start production servers
-npm run start
+npm run start:prod
 ```
 
-## 📚 API Documentation
-
-When running in development mode, visit http://localhost:3001/api/docs to view the interactive Swagger API documentation.
-
-## 💡 Alternative Free Storage Options
-
-If you want to explore other free options:
-
-1. **Supabase Storage** (1GB free)
-2. **Firebase Storage** (5GB free)
-3. **Backblaze B2** (10GB free)
-4. **AWS S3** (5GB free for 12 months)
-
-The current setup uses Cloudinary because it offers the most generous free tier with 25GB storage + 25GB bandwidth.
+### Frontend Deployment:
+```bash
+cd frontend
+npm run build
+npm start
+```
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+1. **Code Style**: ESLint और Prettier का उपयोग करें
+2. **Testing**: Tests लिखें और run करें
+3. **Documentation**: Changes को document करें
+4. **Environment**: Proper environment variables set करें
 
-## 📄 License
+## 📝 Architecture Benefits
 
-This project is licensed under the MIT License. 
+### 🎯 Clean Separation:
+- **Independent Development**: Frontend और backend teams अलग काम कर सकते हैं
+- **Technology Flexibility**: अलग-अलग technologies का उपयोग
+- **Clear Boundaries**: Well-defined responsibilities
+
+### 🔄 Development Benefits:
+- **Faster Development**: Parallel development possible
+- **Better Testing**: Isolated unit testing
+- **Easier Maintenance**: Clear structure और organization
+
+### 🚀 Deployment Benefits:
+- **Independent Deployment**: अलग-अलग deploy कर सकते हैं
+- **Resource Optimization**: Different resource allocation
+- **Scalability**: Individual scaling possible
+
+## 📞 Support
+
+अगर कोई issue आए तो:
+1. Individual folder के README देखें
+2. Setup scripts run करें
+3. Common issues section check करें
+4. Environment variables verify करें
+
+## 🎉 Success Indicators
+
+Setup successful है अगर:
+- ✅ Backend server http://localhost:3001 पर चल रही है
+- ✅ Frontend app http://localhost:3000 पर accessible है
+- ✅ API documentation http://localhost:3001/api/docs पर available है
+- ✅ User registration/login काम कर रहा है
+- ✅ Movies CRUD operations work कर रहे हैं
+
+**Happy Coding! 🚀** 
