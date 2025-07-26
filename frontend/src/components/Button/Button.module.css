@@ -1,0 +1,76 @@
+/* Base button styles */
+.button {
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: inherit;
+  line-height: 1;
+}
+
+/* Button variants */
+.primary {
+  background: #007bff;
+  color: white;
+}
+
+.primary:hover:not(.disabled) {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+.secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.secondary:hover:not(.disabled) {
+  background: #545b62;
+  transform: translateY(-1px);
+}
+
+.outline {
+  background: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.outline:hover:not(.disabled) {
+  background: #007bff;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Button sizes */
+.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Disabled state */
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Focus styles for accessibility */
+.button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+} 

@@ -1,0 +1,82 @@
+/* Base reset and global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: #333;
+  background: #fff;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Basic responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #0070f3;
+  outline-offset: 2px;
+}
+
+/* Hide Next.js development indicators */
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay],
+.__next-dev-overlay,
+.__next-dev-overlay-backdrop,
+#__next-build-watcher,
+[id*="__next"],
+[class*="__next-dev"],
+[data-nextjs-scroll-focus-boundary] + div[style*="position: fixed"],
+div[style*="position: fixed"][style*="bottom"][style*="left"][style*="z-index"],
+/* Target the specific circular indicator */
+div[style*="position: fixed"][style*="bottom"][style*="left"]:has(div[style*="border-radius"]),
+div[style*="position: fixed"][style*="z-index: 99999"],
+div[style*="position: fixed"][style*="bottom: 16px"],
+div[style*="position: fixed"][style*="left: 16px"],
+/* Next.js build indicator */
+div[data-nextjs-toast-wrapper],
+div[data-nextjs-toast] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
