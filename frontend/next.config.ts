@@ -27,8 +27,10 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
-  // Disable pages directory
+  // Explicitly disable pages directory and enable app directory
   pageExtensions: ['tsx', 'ts'],
+  // Set output to standalone for better deployment
+  output: 'standalone',
 };
 
 export default nextConfig;
