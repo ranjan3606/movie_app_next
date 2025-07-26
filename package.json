@@ -12,7 +12,7 @@
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd server && npm run start:dev",
     "build": "npm run build:frontend && npm run build:backend",
-    "build:frontend": "cd frontend && npm run build",
+    "build:frontend": "cd frontend && rm -rf .next && npm run build",
     "build:backend": "cd server && npm run build",
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "start:frontend": "cd frontend && npm start",
@@ -24,7 +24,9 @@
     "lint:frontend": "cd frontend && npm run lint",
     "lint:backend": "cd server && npm run lint",
     "render:build": "npm run install:all && npm run build",
-    "render:start": "NODE_ENV=production npm run start"
+    "render:start": "NODE_ENV=production npm run start",
+    "clean": "cd frontend && rm -rf .next && cd ../server && rm -rf dist",
+    "clean:build": "npm run clean && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
